@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/contacts/operations';
-import { Forma, Label, Button, Input } from './form.styled';
-import { getItems } from 'redux/contacts/selectors';
+import { addContact } from '../../redux/contacts/operations';
+import { Forma, Label, Button, Input } from './ContactForm.styled';
+import { getItems } from '../../redux/contacts/selectors';
+import { toast } from 'react-toastify';
 
 function Form() {
   const contacts = useSelector(getItems);
@@ -10,18 +11,17 @@ function Form() {
   const formSubmitHandler = e => {
     e.preventDefault();
 
-    const { name, phone } = e.target.elements;
+    const { name, number } = e.target.elements;
 
     const isContactExist = contacts.find(
       contact => contact.name.toLowerCase() === name.value.toLowerCase()
     );
 
     if (isContactExist) {
-      alert(`${name.value} is already in contacts.`);
-      return;
+      return toast.warn(`${name} is alredy in contacts.`);
     }
 
-    dispatch(addContact({ name: name.value, phone: phone.value }));
+    dispatch(addContact({ name: name.value, number: number.value }));
 
     e.target.reset();
   };
@@ -43,7 +43,7 @@ function Form() {
         Number
         <Input
           type="tel"
-          name="phone"
+          name="number"
           pattern="\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required

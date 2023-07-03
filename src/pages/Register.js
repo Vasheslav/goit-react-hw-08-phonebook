@@ -1,13 +1,16 @@
-import { Helmet } from 'react-helmet';
-import { RegisterForm } from 'components/RegisterForm/RegisterForm';
+import { RegisterForm } from '../components/Form/autsForms/RegisterForm';
+import { NavLink } from 'react-router-dom';
 
-export default function Register() {
+const Register = () => {
   return (
     <div>
-      <Helmet>
-        <title>Registration</title>
-      </Helmet>
+      <h2>Registration</h2>
       <RegisterForm />
+      <p className="TextAuth">
+        Already registered? <NavLink to={'/login'}>Sign in</NavLink>
+      </p>
     </div>
   );
-}
+};
+
+export default Register;

@@ -1,31 +1,41 @@
+import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Helmet } from 'react-helmet';
-import Form from '../components/Form/form';
-import Filter from '../components/Filter/filter';
-import ContactList from '../components/ContactList/contactList';
-import { fetchContacts } from 'redux/contacts/operations';
-import { getIsLoading } from 'redux/contacts/selectors';
+import { Dna } from 'react-loader-spinner';
 
-function Contacts() {
+import { fetchContacts } from '../redux/contacts/operations';
+import ContactList from '../components/ContactList/contactList';
+import Filter from '../components/Filter/filter';
+import ContactForm from '../components/Form/ContactForm';
+import { selectIsLoading, selectError } from '../redux/contacts/selectors';
+
+const Contacts = () => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(getIsLoading);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
 
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
   return (
-    <>
-      <Helmet>
-        <title>Your contacts</title>
-      </Helmet>
-      <Form />
+    <div>
+      <h1>Your phonebook</h1>
+      <ContactForm />
+      <h2>Contacts</h2>
       <Filter />
-      <div>{isLoading && 'Request in progress...'}</div>
+      {isLoading && !error && (
+        <Dna
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="dna-loading"
+          wrapperStyle={{}}
+          wrapperClass="dna-wrapper"
+        />
+      )}
       <ContactList />
-    </>
+    </div>
   );
-}
+};
 
 export default Contacts;

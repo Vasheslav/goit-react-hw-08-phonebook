@@ -22,7 +22,7 @@ const authSlice = createSlice({
       state.token = action.payload.token;
       state.isLoggedIn = true;
     },
-    [logOut.fulfilled](state) {
+    [logOut.fulfilled](state, action) {
       state.user = { name: null, email: null };
       state.token = null;
       state.isLoggedIn = false;
@@ -41,6 +41,4 @@ const authSlice = createSlice({
   },
 });
 
-const authReducer = authSlice.reducer;
-
-export default authReducer;
+export const authReducer = authSlice.reducer;
