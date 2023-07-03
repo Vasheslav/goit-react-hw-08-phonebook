@@ -1,6 +1,6 @@
 import React from 'react';
 import { lazy, useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectIsRefreshing } from '../redux/auth/selectors';
 import { Dna } from 'react-loader-spinner';
@@ -41,6 +41,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
+
             <Route
               path="register"
               element={
@@ -69,6 +70,8 @@ const App = () => {
               }
             />
           </Route>
+          <Route path="*" element={<Navigate to="register" />} />
+          <Route path="/" element={<Navigate to="register" />} />
         </Routes>
       )}
       <ToastContainer

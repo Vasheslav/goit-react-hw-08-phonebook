@@ -7,7 +7,6 @@ export const RegisterForm = () => {
   const handleSubmit = evt => {
     evt.preventDefault();
     const form = evt.currentTarget;
-    console.log(form);
 
     dispatch(
       register({
@@ -16,8 +15,6 @@ export const RegisterForm = () => {
         password: form.elements.password.value,
       })
     );
-    console.log(form.elements.name.value);
-    form.reset();
   };
 
   return (

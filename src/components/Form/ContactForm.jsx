@@ -18,7 +18,7 @@ function Form() {
     );
 
     if (isContactExist) {
-      return toast.warn(`${name} is alredy in contacts.`);
+      return toast.warn(`${name.value} is alredy in contacts.`);
     }
 
     dispatch(addContact({ name: name.value, number: number.value }));
